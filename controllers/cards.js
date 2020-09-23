@@ -3,20 +3,20 @@ const Card = require('../models/card');
 const readCards = (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(500).send({ message: 'Ошибка чтения карточек' }));
+    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
 const createCard = (req, res) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(500).send({ message: 'Ошибка создания карточки' }));
+    .catch(() => res.status(400).send({ message: 'Ошибка создания карточки' }));
 };
 
 const deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id)
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(500).send({ message: 'Ошибка удаления карточки' }));
+    .catch(() => res.status(400).send({ message: 'Ошибка удаления карточки' }));
 };
 
 const setLike = (req, res) => {
@@ -30,7 +30,7 @@ const setLike = (req, res) => {
     { new: true },
   )
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(500).send({ message: 'Ошибка удаления лайка' }));
+    .catch(() => res.status(400).send({ message: 'Ошибка постановки лайка' }));
 };
 
 const removeLike = (req, res) => {
@@ -44,7 +44,7 @@ const removeLike = (req, res) => {
     { new: true },
   )
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(500).send({ message: 'Ошибка удаления лайка' }));
+    .catch(() => res.status(400).send({ message: 'Ошибка удаления лайка' }));
 };
 
 module.exports = {
