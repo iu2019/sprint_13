@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+/* eslint-disable linebreak-style */
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -35,5 +36,6 @@ app.use('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });

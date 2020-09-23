@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const router = require('express').Router();
 // const bodyParser = require('body-parser');
 const {
