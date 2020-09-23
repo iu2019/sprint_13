@@ -21,7 +21,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 mongoose.set('runValidators', true);
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   req.user = {
     _id: '5f67dc2270485bd023547399', // вставьте сюда _id созданного в предыдущем пункте пользователя
