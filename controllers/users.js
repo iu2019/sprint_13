@@ -37,24 +37,24 @@ const createUser = (req, res) => {
 const updateUser = (req, res) => {
   const { name, about } = req.body;
   let errStatus = 400;
-  User.findByIdAndUpdate(req.params.id, { name, about })
+  User.findByIdAndUpdate(req.user._id, { name, about })
     .orFail(() => {
       errStatus = 404;
       throw new ValidationError('Нет пользователя с таким id');
     })
-    .then(() => res.status(201).send({ data: { name, about } }))
+    .then(() => res.status(200).send({ data: { name, about } }))
     .catch((err) => res.status(errStatus).send({ message: err.message }));
 };
 
 const updateUserAvatar = (req, res) => {
   const { avatar } = req.body;
   let errStatus = 400;
-  User.findByIdAndUpdate(req.params.id, { avatar })
+  User.findByIdAndUpdate(req.user._id, { avatar })
     .orFail(() => {
       errStatus = 404;
       throw new ValidationError('Нет пользователя с таким id');
     })
-    .then(() => res.status(201).send({ data: { avatar } }))
+    .then(() => res.status(200).send({ data: { avatar } }))
     .catch((err) => res.status(errStatus).send({ message: err.message }));
 };
 

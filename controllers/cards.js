@@ -47,7 +47,7 @@ const setLike = (req, res) => {
       errStatus = 404;
       throw new ValidationError('Нет пользователя с таким id');
     })
-    .then((card) => res.status(201).send({ data: card }))
+    .then((card) => res.status(200).send({ data: card }))
     .catch((err) => res.status(errStatus).send({ message: err.message }));
 };
 
@@ -66,7 +66,7 @@ const removeLike = (req, res) => {
       errStatus = 404;
       throw new ValidationError('Нет пользователя с таким id');
     })
-    .then((card) => res.status(201).send({ data: card }))
+    .then((card) => res.status(200).send({ data: card }))
     .catch((err) => res.status(errStatus).send({ message: err.message }));
 };
 

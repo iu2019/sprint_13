@@ -10,8 +10,8 @@ router.get('/:id', readUserById);
 
 router.get('/', readUsers);
 
-router.patch('/:id', updateUser);
+router.patch('/me', updateUser);
 
-router.patch('/:id/avatar', updateUserAvatar);
+router.patch('/me/avatar', updateUserAvatar);
 
 module.exports = router;
