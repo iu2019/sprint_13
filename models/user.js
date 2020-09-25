@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 const mongoose = require('mongoose');
 const validator = require('validator');
 

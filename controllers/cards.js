@@ -1,5 +1,13 @@
 const Card = require('../models/card');
 
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ValidationError';
+    this.statusCode = 400;
+  }
+}
+
 const readCards = (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
@@ -9,14 +17,15 @@ const readCards = (req, res) => {
 const createCard = (req, res) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send({ data: card }))
-    .catch(() => res.status(400).send({ message: 'Ошибка создания карточки' }));
+    .then((card) => res.status(201).send({ data: card }))
+    .catch(() => res.status(400).send({ message: 'Ошибка валидации полей карточки' }));
 };
 
 const deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id)
+    .orFail(() => { throw new ValidationError('Нет карточки с таким id'); })
     .then((card) => res.send({ data: card }))
-    .catch(() => res.status(400).send({ message: 'Ошибка удаления карточки' }));
+    .catch((err) => res.status(400).send({ message: err.message }));
 };
 
 const setLike = (req, res) => {
@@ -29,8 +38,9 @@ const setLike = (req, res) => {
     },
     { new: true },
   )
-    .then((card) => res.send({ data: card }))
-    .catch(() => res.status(400).send({ message: 'Ошибка постановки лайка' }));
+    .orFail(() => { throw new ValidationError('Нет карточки с таким id'); })
+    .then((card) => res.status(201).send({ data: card }))
+    .catch((err) => res.status(400).send({ message: err.message }));
 };
 
 const removeLike = (req, res) => {
@@ -43,8 +53,9 @@ const removeLike = (req, res) => {
     },
     { new: true },
   )
-    .then((card) => res.send({ data: card }))
-    .catch(() => res.status(400).send({ message: 'Ошибка удаления лайка' }));
+    .orFail(() => { throw new ValidationError('Нет карточки с таким id'); })
+    .then((card) => res.status(201).send({ data: card }))
+    .catch((err) => res.status(400).send({ message: err.message }));
 };
 
 module.exports = {

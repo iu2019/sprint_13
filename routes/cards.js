@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 const router = require('express').Router();
 const {
   readCards, deleteCard, createCard, setLike, removeLike,
