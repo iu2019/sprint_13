@@ -1,10 +1,8 @@
 const router = require('express').Router();
-// const bodyParser = require('body-parser');
+
 const {
   readUsers, readUserById, createUser, updateUser, updateUserAvatar,
 } = require('../controllers/users');
-
-// router.use(bodyParser.json());
 
 router.post('/', createUser);
 
